@@ -2,6 +2,8 @@
 Instructions: https://leetcode.com/problems/insert-delete-getrandom-o1/
 """
 
+import random
+
 class RandomizedSet(object):
 
     a = {}
@@ -48,6 +50,9 @@ class RandomizedSet(object):
         Get a random element from the set.
         :rtype: int
         """
+        if len(self.a) > 0:
+            new = random.choice(list(self.a.keys()))
+            return new
         
 
 
@@ -61,8 +66,10 @@ param_1 = obj.insert(5)
 print(param_1)
 param_1 = obj.insert(5)
 param_1 = obj.insert(2)
+param_1 = obj.insert(3)
 print(param_1)
 print(obj.a)
 param_1 = obj.remove(5)
 print(param_1)
 print(obj.a)
+print(obj.getRandom())
