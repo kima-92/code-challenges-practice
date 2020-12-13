@@ -34,6 +34,13 @@ class RandomizedSet(object):
         :type val: int
         :rtype: bool
         """
+
+        # Check if it contains val
+        if val in self.a:
+            del self.a[val]
+            return True
+        else:
+            return False
         
 
     def getRandom(self):
@@ -53,5 +60,9 @@ obj = RandomizedSet()
 param_1 = obj.insert(5)
 print(param_1)
 param_1 = obj.insert(5)
+param_1 = obj.insert(2)
+print(param_1)
+print(obj.a)
+param_1 = obj.remove(5)
 print(param_1)
 print(obj.a)
