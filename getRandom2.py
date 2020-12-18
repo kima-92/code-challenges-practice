@@ -1,18 +1,18 @@
 """
 Instructions: https://leetcode.com/problems/insert-delete-getrandom-o1/
+Optimazation Youtube video: https://www.youtube.com/watch?v=ufsUFkbypsc
 """
 
 import random
 
 class RandomizedSet(object):
 
-    a = {}
-
     def __init__(self):
         """
         Initialize your data structure here.
         """
-        self.a = []
+        self.dict = {}
+        self.array = []
         
 
     def insert(self, val):
@@ -23,11 +23,12 @@ class RandomizedSet(object):
         """
         
         # check if a already contains val
-        if val in self.a:
+        if val in self.dict:
             return False
-        else:
-            self.a.append(val)
-            return True
+
+        self.dict[val] = len(self.array) 
+        self.array.append(val)
+        return True
         
 
     def remove(self, val):
@@ -37,12 +38,15 @@ class RandomizedSet(object):
         :rtype: bool
         """
 
-        # Check if it contains val
-        if val in self.a:
-            self.a.remove(val)
+        if val in self.dict:
+            last_element, idnx_of_val_to_be_deleted = self.array[-1], self.dict[val]
+            self.array[idnx_of_val_to_be_deleted], self.dict[last_element] = last_element, idnx_of_val_to_be_deleted
+            # WHY?? ^^^
+            self.array.pop()
+            del self.dict[val]
             return True
-        else:
-            return False
+            
+        return False
         
 
     def getRandom(self):
@@ -50,9 +54,7 @@ class RandomizedSet(object):
         Get a random element from the set.
         :rtype: int
         """
-        if len(self.a) > 0:
-            new = random.choice(self.a)
-            return new
+        return random.choice(self.array)
         
 
 
@@ -68,8 +70,8 @@ param_1 = obj.insert(5)
 param_1 = obj.insert(2)
 param_1 = obj.insert(3)
 print(param_1)
-print(obj.a)
+print(obj.array)
 param_1 = obj.remove(5)
 print(param_1)
-print(obj.a)
+print(obj.array)
 print(obj.getRandom())
