@@ -8,4 +8,9 @@ class Solution(object):
         :type b: int
         :rtype: int
         """
-        
+        arr = [a, b]
+        return sum(arr)
+
+
+s = Solution()
+print(s.getSum(10,20))
