@@ -16,23 +16,18 @@ the stack (i = 0 is the top of the stack) and students[j] is the preference of t
 queue (j = 0 is the front of the queue). Return the number of students that are unable to eat.
 """
 
-class Solution(object):
-
+class Solution:
+    
     students = []
     sandwiches = []
     
-    """
-    init(self, students, sandwiches):
+    def countStudents(self, students, sandwiches):
+        
         self.students = students
         self.sandwiches = sandwiches
-    """
-
-    def countStudents(self, students, sandwiches):
-        """
-        :type students: List[int]
-        :type sandwiches: List[int]
-        :rtype: int
-        """
+        
+        if not self.arraysNotEmpty():
+            return 0 
         
         # students are in a QUEUE
         # sandwiches are un a STACK
@@ -44,27 +39,58 @@ class Solution(object):
         # When none of the remaining students are able to eat, return the num of students remaining
 
 
-        # Have a function to send students to the back of the queue
 
-        # Function to check if the next student wants the next sandwich
+        while self.arraysNotEmpty() and self.anyoneWantsNextSandwich():
+            if self.nextStudentWantsNextSandwich():
+                self.removeStudentAndSandwhich()
+            else:
+                self.sendStudentToTheEnd()
 
-        # Something need to track the students sent to the back of the queue
-        # make sure you stop checking if there's no more options for them
-
-        # Function to remove happy student and correct sandwich from arrays
+        return len(self.students)
 
 
-        # send students to the back of the queue
-    def sendStudentToTheEnd(self, studentIndex):
-        stundet = self.students.pop(studentIndex)
+    # send students to the back of the queue
+    def sendStudentToTheEnd(self):
+        stundet = self.students.pop(0)
         self.students.append(stundet)
+
+    # check if the next student wants the next sandwich
+    def nextStudentWantsNextSandwich(self):
+        if self.students[0] == self.sandwiches[0]:
+            return True
+        return False
+
+    # remove happy student and correct sandwich from arrays
+    def removeStudentAndSandwhich(self):
+        self.students.pop(0)
+        self.sandwiches.pop(0)
+
+    def anyoneWantsNextSandwich(self):
+        if self.sandwiches[0] in self.students:
+            return True
+        return False
+
+    # Check if either array is empty
+    def arraysNotEmpty(self):
+        if self.students == [] or self.sandwiches == [] or self.students == None or self.sandwiches == None:
+            return False
+        return True
+
+
+
 
 
 # TESTING
 s = Solution()
-s.sandwiches = [1, 2, 3, 4]
-s.students = [1, 2, 3, 4]
+s.sandwiches = [1,0,0,0,1,1]
+s.students = [1,1,1,0,0,1]
+#s.sandwiches = []
+#s.students = None
 print(f"\nOriginal Students: {s.students}\n")
 
-s.sendStudentToTheEnd(1)
-print(s.students)
+print(s.countStudents(s.students, s.sandwiches))
+#s.sendStudentToTheEnd()
+#print(s.students)
+
+#print(s.nextStudentWantsNextSandwich())
+#print(s.nextStudentWantsNextSandwich())
