@@ -17,6 +17,16 @@ queue (j = 0 is the front of the queue). Return the number of students that are 
 """
 
 class Solution(object):
+
+    students = []
+    sandwiches = []
+    
+    """
+    init(self, students, sandwiches):
+        self.students = students
+        self.sandwiches = sandwiches
+    """
+
     def countStudents(self, students, sandwiches):
         """
         :type students: List[int]
@@ -28,5 +38,33 @@ class Solution(object):
         # sandwiches are un a STACK
         
         # If the next student prefers the sandwich that is on the TOP of the stack, they take it and leave
-        # Else, the student goes back to the end of the queue (doesn't take the sandwic)
-        
+        # Else, the student goes back to the end of the queue (doesn't take the sandwich)
+        # Sandwiches DON'T ROTATE
+
+        # When none of the remaining students are able to eat, return the num of students remaining
+
+
+        # Have a function to send students to the back of the queue
+
+        # Function to check if the next student wants the next sandwich
+
+        # Something need to track the students sent to the back of the queue
+        # make sure you stop checking if there's no more options for them
+
+        # Function to remove happy student and correct sandwich from arrays
+
+
+        # send students to the back of the queue
+    def sendStudentToTheEnd(self, studentIndex):
+        stundet = self.students.pop(studentIndex)
+        self.students.append(stundet)
+
+
+# TESTING
+s = Solution()
+s.sandwiches = [1, 2, 3, 4]
+s.students = [1, 2, 3, 4]
+print(f"\nOriginal Students: {s.students}\n")
+
+s.sendStudentToTheEnd(1)
+print(s.students)
